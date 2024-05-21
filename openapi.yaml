@@ -1,0 +1,60 @@
+openapi: "3.1.0"
+info:
+  title: "Crossmint API"
+  description: "Crossmint API"
+  version: "v1.0.0"
+servers:
+  - url: "https://staging.crossmint.com"
+paths:
+  /api/2022-06-09/collections/default/nfts:
+    post:
+      description: "Mint an NFT"
+      operationId: "MintNFT"
+      x-openai-isConsequential: true
+      requestBody:
+        description: "Request body for minting an NFT"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                recipient:
+                  type: string
+                  description: "The recipient of the NFT. It should be provided in the format of '<chain>:<address>' or 'email:<email_address>:<chain>'. Example : 'email:support@crossmint.io:solana' or 'solana:HTmBT41P5BKLPtpvFupbjTp2cp6j4LuRHoH2tP1cPzXY'"
+                metadata:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: "The name of the NFT. Limited to 32 characters."
+                    image:
+                      type: string
+                      format: uri
+                      description: "The image URL for the NFT. Should be a valid URI."
+                    description:
+                      type: string
+                      description: "The description of the NFT."
+                    attributes:   # Optional traits
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          display_type:
+                            type: string
+                          trait_type:
+                            type: string
+                          value:
+                            type: string
+              required:
+                - recipient
+                - metadata
+      responses:
+        "200":
+          description: "NFT successfully minted"
+        "400":
+          description: "Bad request"
+        "401":
+          description: "Unauthorized"
+        "500":
+          description: "Internal server error"
