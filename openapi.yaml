@@ -21,7 +21,7 @@ paths:
               properties:
                 recipient:
                   type: string
-                  description: "The recipient of the NFT. It should be provided in the format of '<chain>:<address>' or 'email:<email_address>:<chain>'. Example: 'email:support@crossmint.io:solana' or 'solana:HTmBT41P5BKLPtpvFupbjTp2cp6j4LuRHoH2tP1cPzXY'"
+                  description: "The recipient of the NFT. It should be provided in the format of '<chain>:<address>' or 'email:<email_address>:<chain>'. Example : 'email:support@crossmint.io:solana' or 'solana:HTmBT41P5BKLPtpvFupbjTp2cp6j4LuRHoH2tP1cPzXY'"
                 metadata:
                   type: object
                   properties:
@@ -35,7 +35,7 @@ paths:
                     description:
                       type: string
                       description: "The description of the NFT."
-                    attributes:
+                    attributes:   # Optional traits
                       type: array
                       items:
                         type: object
@@ -58,87 +58,3 @@ paths:
           description: "Unauthorized"
         "500":
           description: "Internal server error"
-  /api/2022-06-09/collections/:
-    post:
-      tags:
-        - NFT Collections
-      operationId: create-collection
-      summary: Create Collection
-      description: |
-        Create a collection that you can mint NFTs/SFTs from
-
-        **API scope required**: `collections.create`
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CreateCollectionBody"
-      responses:
-        "200":
-          description: Success.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/CreateCollectionResponse"
-        "400":
-          description: Invalid arguments, please make sure you're following the API specification.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/400Response"
-        "403":
-          description: Forbidden error, please ensure the credentials are correct.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/403Response"
-        "404":
-          description: Not found error.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/404Response"
-        "503":
-          description: Please try again in a few minutes. If the issue still persists, contact Crossmint support.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/503Response"
-components:
-  schemas:
-    CreateCollectionBody:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-    CreateCollectionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-    400Response:
-      type: object
-      properties:
-        message:
-          type: string
-    403Response:
-      type: object
-      properties:
-        message:
-          type: string
-    404Response:
-      type: object
-      properties:
-        message:
-          type: string
-    503Response:
-      type: object
-      properties:
-        message:
-          type: string
