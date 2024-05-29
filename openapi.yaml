@@ -106,15 +106,6 @@ paths:
                 $ref: "#/components/schemas/503Response"
 components:
   schemas:
-    GetCollectionResponse:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
     CreateCollectionBody:
       type: object
       properties:
